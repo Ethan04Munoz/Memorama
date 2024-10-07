@@ -1,0 +1,121 @@
+body{
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63,94,251,1) 15%, rgba(252,70,107,1) 71%); 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+main{
+    width: 730px;
+    margin: 100px auto 50px;
+    display: flex;
+    align-items: center;
+}
+
+.section1{
+    background-color: rgba(255,255,255,0.2);
+    padding: 0 10px 10px 10px;
+    border-radius: 8px;
+}
+
+.card{
+    height: 100px;
+    width: 100px;
+    font-size: 40px;
+    color: black;
+    font-weight: 800;
+}
+
+h1{
+    text-align: center;
+}
+
+.card:hover{
+    cursor: pointer;
+}
+
+.card:disabled{
+    cursor: default;
+}
+
+.section2{
+    background-color: rgba(255,255,255,0.2);
+    width: 250px;
+    height: 400px;
+    border-radius: 0px 8px 8px 0px;
+    padding: 0 20px ;
+}
+
+.estadisticas{
+    border: 1px solid white;
+    height: 105px;
+    border-radius: 8px;
+    padding: 8px 20px;
+    box-sizing: border-box;
+}
+
+footer{
+    text-decoration: none;
+    text-align: center;
+}
+
+img{
+    width: 80%;
+}
+
+/* Estilos para el botón */
+.btn-open {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Estilos para el botón */
+.btn-open {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Estilos del modal */
+.modal {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: rgba(163, 163, 163, 0.288);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    max-width: 80%;
+}
+
+/* Botón para cerrar el modal */
+.close {
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    border-radius: 5px;
+}

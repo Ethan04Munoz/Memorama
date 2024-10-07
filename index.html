@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memorama</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <main>
+        <section class="section1">
+            <h1>Memorama</h1>
+            <table>
+                <tr>
+                    <script>
+                        const totalBotones = 16; // Número total de botones
+                        let tablaHTML = '';
+
+                        for (let i = 0; i < totalBotones; i++) {
+                            if (i % 4 === 0) {
+                                tablaHTML += '<tr>'; // Inicia una nueva fila cada 4 botones
+                            }
+                            tablaHTML += `<td><button class="card" id="${i}" onclick="destapar(${i})"></button></td>`;
+                            if (i % 4 === 3) {
+                                tablaHTML += '</tr>'; // Cierra la fila cada 4 botones
+                            }
+                        }
+
+                        document.write(tablaHTML); // Inserta el contenido de la tabla en el HTML
+                    </script>
+            </table>
+        </section>
+        <section class="section2">
+            <h2 id="aciertos" class="estadisticas">Aciertos: 0</h2>
+            <h2 id="t-restante" class="estadisticas">Tiempo: 30 segundos</h2>
+            <h2 id="movimientos" class="estadisticas">Movimientos: 0</h2>
+        </section>
+    </main>
+    <!-- Botón para abrir el modal -->
+    <button class="btn-open">Abrir Modal</button>
+
+    <!-- Ventana modal ganaste-->
+    <div class="modal">
+        <div class="modal-content">
+            <h2>Ganaste!</h2>
+            <p>Completaste el memorama en solo x segundos</p>
+            <button class="close">Reiniciar partida</button>
+        </div>
+    </div>
+
+        <!-- Ventana modal ganaste-->
+        <div class="modal">
+            <div class="modal-content">
+                <h2>Mala suerte!</h2>
+                <p>Te quedaste sin tiempo, vuelve a intentarlo</p>
+                <button class="close">Reiniciar</button>
+            </div>
+        </div>
+    
+
+    <script>
+        // Abrir y cerrar modal con eventos de clic
+        const modal = document.querySelector('.modal');
+        const openBtn = document.querySelector('.btn-open');
+        const closeBtn = document.querySelector('.close');
+
+        openBtn.addEventListener('click', () => {
+            modal.classList.add('show');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('show');
+        });
+    </script>
+    <!-- Pie de página -->
+    <footer>
+        <p>Memorama 👉 <a href="https://github.com/Ethan04Munoz" class="text-white">Desarrollado por Ethan Muñoz</a></p>
+    </footer>
+    <script src="main.js"></script>
+</body>
+
+</html>
