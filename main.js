@@ -1,30 +1,45 @@
-//Inicializacion
-
-let tarjetasDestapadas = 0
+// Inicialización
+let tarjetasDestapadas = 0;
 let tarjeta1 = null, tarjeta2 = null;
 let primerResultado = null, segundoResultado = null;
 let movimientos = 0;
-let movimientosMostrar = document.getElementById('movimientos');
 let aciertos = 0;
-let aciertosMostrar = document.getElementById('aciertos');
 let temporizador = false;
 let timer = 30;
-let tiempoRestanteMostrar = document.getElementById('t-restante');
 let tiempoRegresivoIdInterval = null;
 
-let numeros = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
-numeros = shuffleArray(numeros);
+const movimientosMostrar = document.getElementById('movimientos');
+const aciertosMostrar = document.getElementById('aciertos');
+const tiempoRestanteMostrar = document.getElementById('t-restante');
 
-//Audios
-
+// Audios
 let audioWin = new Audio('./sounds/win.wav');
 let audioRight = new Audio('./sounds/right.wav');
 let audioClick = new Audio('./sounds/click.wav');
 let audioWrong = new Audio('./sounds/wrong.wav');
 let audioLose = new Audio('./sounds/lose.wav');
 
-//Funciones
+// Generar la tabla
+const totalBotones = 16;
+let tablaHTML = '';
 
+for (let i = 0; i < totalBotones; i++) {
+    if (i % 4 === 0) {
+        tablaHTML += '<tr>'; // Inicia una nueva fila cada 4 botones
+    }
+    tablaHTML += `<td><button class="card" id="${i}" onclick="destapar(${i})"></button></td>`;
+    if (i % 4 === 3) {
+        tablaHTML += '</tr>'; // Cierra la fila cada 4 botones
+    }
+}
+
+document.getElementById('tabla-juego').innerHTML = tablaHTML; // Inserta la tabla generada
+
+// Números aleatorios para las tarjetas
+let numeros = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
+numeros = shuffleArray(numeros);
+
+// Función para barajar los números
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -33,6 +48,7 @@ function shuffleArray(array) {
     return array;
 }
 
+// Función para bloquear todas las tarjetas
 function bloquearTarjetas() {
     for (let i = 0; i <= 15; i++) {
         let tarjetaActual = document.getElementById(i);
@@ -41,73 +57,81 @@ function bloquearTarjetas() {
     }
 }
 
+// Función para contar tiempo
 function contarTiempo() {
-    //console.log("Contar tiempo")
     tiempoRegresivoIdInterval = setInterval(() => {
-        //console.log("Timer: ", timer)
         timer--;
         tiempoRestanteMostrar.innerText = `Tiempo: ${timer} segundos`;
-        if (timer == 0) {
-            //Perdió
+        if (timer === 0) {
+            // Perdió el juego
             bloquearTarjetas();
-            audioLose.play();
             clearInterval(tiempoRegresivoIdInterval);
+            audioLose.play();
+            mostrarModal('derrota');
         }
     }, 1000);
 }
 
+// Función para mostrar el modal adecuado
+function mostrarModal(resultado) {
+    if (resultado === 'victoria') {
+        document.getElementById('modal-victoria').classList.add('show');
+        document.getElementById('tiempo-final').innerText = 30 - timer;
+    } else {
+        document.getElementById('modal-derrota').classList.add('show');
+    }
+}
+
+// Función para destapar tarjetas
 function destapar(id) {
-    //console.log("Destapar temporizador", id, temporizador)
-    if (temporizador == false) {
+    if (!temporizador) {
         contarTiempo();
         temporizador = true;
     }
 
     tarjetasDestapadas++;
-    if (tarjetasDestapadas == 1) {
-        //Mostrar el primer numero
+
+    if (tarjetasDestapadas === 1) {
         tarjeta1 = document.getElementById(id);
         primerResultado = numeros[id];
-        audioClick.play();
         tarjeta1.innerHTML = `<img src="./img/${primerResultado}.png"/>`;
-
-        //Deshabilitar boton
         tarjeta1.disabled = true;
-    } else if (tarjetasDestapadas == 2) {
-        //Mostrar segundo numero
+        audioClick.play();
+    } else if (tarjetasDestapadas === 2) {
         tarjeta2 = document.getElementById(id);
         segundoResultado = numeros[id];
         tarjeta2.innerHTML = `<img src="./img/${segundoResultado}.png"/>`;
-
-        //Deshabilitar boton
         tarjeta2.disabled = true;
 
-        //Incrementar contador de movimientos
         movimientos++;
         movimientosMostrar.innerText = `Movimientos: ${movimientos}`;
 
-        if (primerResultado == segundoResultado) {
+        if (primerResultado === segundoResultado) {
             tarjetasDestapadas = 0;
-
             aciertos++;
             aciertosMostrar.innerText = `Aciertos: ${aciertos}`;
-
             audioRight.play();
 
-            if (aciertos == 8) {
-                //Ganó
+            if (aciertos === 8) {
+                // Ganó el juego
                 clearInterval(tiempoRegresivoIdInterval);
                 audioWin.play();
+                mostrarModal('victoria');
             }
         } else {
             audioWrong.play();
             setTimeout(() => {
-                tarjeta1.innerText = '';
-                tarjeta2.innerText = '';
+                tarjeta1.innerHTML = '';
+                tarjeta2.innerHTML = '';
                 tarjeta1.disabled = false;
                 tarjeta2.disabled = false;
                 tarjetasDestapadas = 0;
-            }, 500)
+            }, 500);
         }
     }
+}
+
+// Función para reiniciar el juego
+function reiniciar() {
+    location.reload();
 }
