@@ -16,9 +16,9 @@ body {
 
 main {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column; /* Las secciones estarán una debajo de la otra en moviles */
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   width: 90%;
   max-width: 600px;
   margin: 50px auto;
@@ -140,6 +140,19 @@ h1 {
   cursor: pointer;
   border-radius: 5px;
 }
+
+/* Ajuste para pantallas en modo landscape */
+@media (orientation: landscape) {
+    main {
+      flex-direction: row; /* Las secciones estarán una al lado de la otra */
+      justify-content: space-evenly;
+      max-width: 1300px;
+    }
+  
+    .section1, .section2 {
+      width: 45%;
+    }
+  }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
