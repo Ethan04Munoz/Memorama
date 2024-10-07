@@ -101,12 +101,13 @@ img{
 }
 
 .modal-content {
-    background-color: rgba(163, 163, 163, 0.288);
+    background-color: rgba(163, 163, 163, 0.450);
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    width: 300px;
+    width: 700px;
     max-width: 80%;
+    font-size: 20px;
 }
 
 /* Botón para cerrar el modal */
