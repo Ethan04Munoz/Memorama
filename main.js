@@ -27,13 +27,25 @@ for (let i = 0; i < totalBotones; i++) {
     if (i % 4 === 0) {
         tablaHTML += '<tr>'; // Inicia una nueva fila cada 4 botones
     }
-    tablaHTML += `<td><button class="card" id="${i}" onclick="destapar(${i})"></button></td>`;
+    // Remueve el onclick en la generación de botones
+    tablaHTML += `<td><button class="card" id="${i}"></button></td>`;
     if (i % 4 === 3) {
         tablaHTML += '</tr>'; // Cierra la fila cada 4 botones
     }
 }
 
-document.getElementById('tabla-juego').innerHTML = tablaHTML; // Inserta la tabla generada
+// Inserta la tabla generada en el HTML
+document.getElementById('tabla-juego').innerHTML = tablaHTML;
+
+// Añade los event listeners después de que los botones han sido creados
+for (let i = 0; i < totalBotones; i++) {
+    document.getElementById(`${i}`).addEventListener('click', function() {
+        destapar(i); // Llama a la función destapar pasando el índice
+    });
+}
+
+//
+document.getElementById('reiniciar-partida').addEventListener('click', reiniciar);
 
 // Números aleatorios para las tarjetas
 let numeros = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
@@ -88,6 +100,8 @@ function destapar(id) {
         contarTiempo();
         temporizador = true;
     }
+
+    console.log("ID obtenido:", id)
 
     tarjetasDestapadas++;
 

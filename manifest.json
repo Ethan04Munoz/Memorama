@@ -1,0 +1,16 @@
+{
+    "manifest_version": 2,
+    "name": "Mi memorama",
+    "version": "1.0",
+    "description": "A firefox extension to allow you play a little memory game.",
+    "icons": {
+        "48": "icons/icon-48.png"
+    },
+    "permissions": [
+    ],
+    "content_security_policy": "script-src 'self'; object-src 'self'",
+    "browser_action": {
+        "default_icon": "icons/icon-48.png",
+        "default_popup": "index.html"
+    }
+}
